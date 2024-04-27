@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+  <title>Settings Manager</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/additional.css">
+  <script src="js/jquery-3.6.3.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="js/ws.js"></script>
+  <!--
+    <script src="js/popper.js" ></script>
+  -->
+
+  <style>
+    body {
+      position: relative; 
+    }
+    #section1 {padding-top:50px;height:500px;color: #fff; background-color: #1E88E5;}
+    #section2 {padding-top:50px;height:500px;color: #fff; background-color: #673ab7;}
+    #section3 {padding-top:50px;height:500px;color: #fff; background-color: #ff9800;}
+    #section41 {padding-top:50px;height:500px;color: #fff; background-color: #00bcd4;}
+    #section42 {padding-top:50px;height:500px;color: #fff; background-color: #009688;}
+    </style>
+</head>
+
+  <body >
+    
+
+   
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-1"><input type="submit" value="Connect" onclick="ws.connect();"></input></div>
+        <div class="col-md-1"><input type="submit" value="Init" onclick="sendinit();"></input></div>
+        <div class="col-md-1"><input type="submit" value="Save" onclick="sendsave();"></input></div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <h3>Phase 1</h3>
+          <div class="row">
+            <div class="col-xs-4">
+              <input type="radio" name="optradio"  onclick="p1selection('rgbR');"><img id="rgbR" src="testbild.png" class="p1img">
+            </div>
+            <div class="col-xs-4">
+              <input type="radio" name="optradio" onclick="p1selection('rgbG');"><img id="rgbG" src="testbild.png" class="p1img">
+            </div>
+            <div class="col-xs-4">
+              <input type="radio" name="optradio" onclick="p1selection('rgbB');"><img id="rgbB" src="testbild.png" class="p1img">
+            </div>  
+          </div>
+          <div class="row">
+            <div class="col-xs-4">
+              <input type="radio" name="optradio" onclick="p1selection('hsvH');"><img id="hsvH" src="testbild.png" class="p1img">
+            </div>
+            <div class="col-xs-4">
+              <input type="radio" name="optradio" onclick="p1selection('hsvS');"><img id="hsvS" src="testbild.png" class="p1img">
+            </div>
+            <div class="col-xs-4">
+              <input type="radio" name="optradio" onclick="p1selection('hsvV');"><img id="hsvV" src="testbild.png" class="p1img">
+            </div>
+              
+          </div> 
+          <div class="row">
+            <div class="col-xs-2"><label for="invertp1" class="label-invert">Invert?<input type="checkbox" id="invertp1" onclick="invertsend(this)"></label></div>
+            <div class="col-xs-4">
+              
+            </div>
+            
+          </div>  
+        </div>
+        <div class="col-md-5">
+          <h3>Phase 2</h3>
+          <img id="frame" width="640" height="480" style="border:1px;float:left;">
+          <input type="range" orient="vertical" style="height: 480px;" id="top-y-dist" onclick="warpsend(this.id,this.value)">
+          <input type="range" orient="vertical" style="height: 480px;" id="bottom-y-dist" onclick="warpsend(this.id,this.value)"></br>
+          <hr style="vertical-align:clear;visibility: hidden;">
+          <label for="top-x-dist" class="label-warp-x">top-x-dist</label><input type="range" style="width: 550px;" id="top-x-dist" onclick="warpsend(this.id,this.value)"><br>
+          <label for="bottom-x-dist"  class="label-warp-x">bottom-x-dist</label><input type="range" style="width: 550px;" id="bottom-x-dist" onclick="warpsend(this.id,this.value)">
+          <img id="warpimg" width="320" height="240" src="testbild.png" style="border:1px;margin:10px;">
+          <img id="blured" width="160px" height="144px" src="testbild.png" style="border:1px;margin:10px;">
+        </div>
+        
+        <div class="col-md-3">
+          <h3>Phase 3</h3>
+          <div class="row"><img id="morph" width="320" height="240" style="border:1px;margin:10px;"></div>
+          <div class="row"><input type="range" id="minthval" max="255" width="200px" onclick="warpsend(this.id,this.value)"></div>
+          <div class="row"><input type="range" id="maxthval" max="255" onclick="warpsend(this.id,this.value)"></div>
+          <div class="row"><label for="thinvert" class="label-invert">Invert?<input type="checkbox" id="thinvert" onclick="invertsend(this)"></label></div>
+          <div class="row"><img id="hist" width="320" height="240" style="border:1px;margin:10px;"></div>
+
+          
+      </div>
+
+    </div>   
+
+    <div class="container-fluid">
+      <h2>Settings</h2>
+      <br>
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" id="topicslist">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#debug">Debuglog</a>
+        </li>
+
+      </ul>
+    
+      <!-- Tab panes -->
+      <div class="tab-content container-fluid" id="menucontent">
+        <div id="debug" class="container-fluid tab-pane active"><br>
+          <p>Filter:<br><input type="text"></p>
+        </div>
+        <div id="menu1" class="container-fluid tab-pane fade"><br>
+          <h3>Menu 1</h3>
+          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+
+      </div>
+    </div>
+   
+  </div>  
+
+   
+
+  </body>
+</html>

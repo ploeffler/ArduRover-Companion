@@ -1,0 +1,17 @@
+.p1img {
+    margin: 2px;
+    border: 1px;
+    width: 160px;
+    height: 144px;
+}
+.label-invert {
+    margin-left:20px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.label-warp-x {
+    margin-left:10px;
+    margin-right: 10px;
+    min-width: 100px;
+}
