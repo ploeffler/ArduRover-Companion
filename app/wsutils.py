@@ -154,6 +154,5 @@ if __name__ == "__main__":
 def threaded_websocket():
     asyncio.run(main())
 
-thread = threading.Thread(target=threaded_websocket)
+wsthread = threading.Thread(target=threaded_websocket)
 #thread.start()
-print("Spun off thread")
